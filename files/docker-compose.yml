@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: "database.local"
+    command:
+      - --table_definition_cache=2048
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-buffer-pool-size=1G
+    image: mariadb:10.5.12
+    environment:
+      - MYSQL_ROOT_PASSWORD=kodejifr
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /opt/.data/mysql:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2G
+    ports:
+      - "3306:3306"
+    networks:
+      - dc-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=database
+    ports:
+      - 8100:80
+    networks:
+      - dc-net
+
+networks:
+  dc-net:
+    driver: bridge
