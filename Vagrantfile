@@ -63,6 +63,8 @@ Vagrant.configure("2") do |config|
 
                 apt update -y
 
+                apt install net-tools -y
+
                 apt install zip -y
 
                 apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
