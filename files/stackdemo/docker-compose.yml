@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  web:
+    image: stackdemo:latest
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512m"
+    volumes:
+      - /vagrant/files/stackdemo:/code
+    ports:
+      - "8000:8000"
+  redis:
+    image: redis:alpine
