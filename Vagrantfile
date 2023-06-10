@@ -72,6 +72,17 @@ Vagrant.configure("2") do |config|
                 usermod -aG docker vagrant
 
                 newgrp docker
+
+                # docker swarm
+                docker swarm init
+
+                docker swarm init --advertise-addr 192.168.56.107
+
+                cd /vagrant/files/stackdemo
+
+                docker build -t stackdemo:latest .
+
+                docker stack deploy --compose-file docker-compose.yml stackdemo
                 SHELL
             end
         end
